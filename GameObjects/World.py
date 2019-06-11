@@ -38,3 +38,20 @@ class World:
 
     def handle_event(self, event):
         pass
+
+    def get_tile_at_pos(self, pos):
+        tx = pos[0] // self.size
+        ty = pos[1] // self.size
+        tile_id = self.grid.get_cell(tx, ty)
+        return {
+            "tile_id": tile_id, 
+            "rect": pygame.Rect(tx, ty, self.size, self.size),
+            "tile_data": self.get_tile_data(tile_id)
+        }
+
+    def get_tiles(self, rect):
+        t1 = self.get_tile_at_pos((rect.x, rect.y))
+        t2 = self.get_tile_at_pos((rect.right, rect.y))
+        t3 = self.get_tile_at_pos((rect.x, rect.bottom))
+        t4 = self.get_tile_at_pos((rect.right, rect.bottom))
+        return [t1, t2, t3, t4]

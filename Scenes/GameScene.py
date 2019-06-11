@@ -28,6 +28,12 @@ class GameScene:
         pass
 
     def check_player_position(self, rect):
-        if self.world.rect.contains(rect):
-            return True
-        return False
+        if not self.world.rect.contains(rect):
+            return False
+
+        tile_rects = self.world.get_tiles(rect)
+        for tile in tile_rects:
+            if tile["tile_data"]["solid"]:
+                return False
+
+        return True
