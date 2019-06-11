@@ -9,7 +9,8 @@ class GameScene:
         self.manager = manager
         self.screenrect = get_screenrect()
         self.player = Player(64, 64)
-        self.world = World(levels.data["World"])
+        self.world = World(levels.data)
+        self.world.load("World")
 
     def update(self, dt):
         self.player.update(dt, self.check_player_position)

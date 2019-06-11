@@ -5,13 +5,21 @@ from Engine.Grid import Grid
 class World:
     def __init__(self, data):
         self.data = data
-        self.grid = Grid(data["grid"])
-        self.width = self.grid.width
-        self.height = self.grid.height
+        self.current_map = None
+        self.grid = None # Grid(data["grid"])
+        self.width = None # self.grid.width
+        self.height = None # self.grid.height
         self.size = 32
         self.image = None
         self.rect = None
-        self.render_image()
+
+    def load(self, map_name):
+        if map_name in self.data.keys():
+            self.current_map = self.data[map_name]
+            self.grid = Grid(self.current_map["grid"])
+            self.width = self.grid.width
+            self.height = self.grid.height
+            self.render_image()
 
     def render_image(self):
         self.image = pygame.Surface((self.width * self.size, self.height * self.size), pygame.SRCALPHA)
@@ -31,7 +39,7 @@ class World:
         pass
 
     def get_tile_data(self, tile_id):
-        return self.data["tile_info"].get(tile_id, None)
+        return self.current_map["tile_info"].get(tile_id, None)
 
     def draw(self, canvas):
         canvas.blit(self.image, (0, 0))
