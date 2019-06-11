@@ -2,13 +2,14 @@ import pygame
 from Engine.Config import get_screenrect
 from GameObjects.Player import Player
 from GameObjects.World import World
+from Data import levels
 
 class GameScene:
     def __init__(self, manager):
         self.manager = manager
         self.screenrect = get_screenrect()
-        self.player = Player()
-        self.world = World()
+        self.player = Player(64, 64)
+        self.world = World(levels.data["World"])
 
     def update(self, dt):
         pass
