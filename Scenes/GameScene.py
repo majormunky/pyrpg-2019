@@ -1,32 +1,21 @@
 import pygame
 from Engine.Config import get_screenrect
+from GameObjects.Player import Player
 
 class GameScene:
     def __init__(self, manager):
         self.manager = manager
         self.screenrect = get_screenrect()
-        self.player = pygame.Rect(0, 0, 32, 32)
+        self.player = Player()
 
     def update(self, dt):
         pass
 
     def draw(self, canvas):
-        pygame.draw.rect(canvas, (0, 255, 0), self.player)
+        self.player.draw(canvas)
 
     def handle_event(self, event):
-        if event.type == pygame.KEYUP:
-            new_rect = self.player.copy()
-            if event.key == pygame.K_UP:
-                new_rect.y -= 32
-            elif event.key == pygame.K_DOWN:
-                new_rect.y += 32
-            elif event.key == pygame.K_LEFT:
-                new_rect.x -= 32
-            elif event.key == pygame.K_RIGHT:
-                new_rect.x += 32
-
-            if self.screenrect.contains(new_rect):
-                self.player = new_rect
+        self.player.handle_event(event)
 
     def activate(self, data):
         pass
