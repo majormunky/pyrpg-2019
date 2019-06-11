@@ -8,6 +8,7 @@ class World:
         self.height = 10
         self.size = 32
         self.grid = Grid([["0" for x in range(self.width)] for y in range(self.height)])
+        self.grid.grid[4][4] = "1"
         self.image = None
         self.render_image()
 
