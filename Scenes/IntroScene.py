@@ -15,7 +15,9 @@ class IntroScene:
         canvas.blit(self.intro_text, (32, 32))
 
     def handle_event(self, event):
-        pass
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_RETURN:
+                self.manager.change_scene("Game")
 
     def activate(self, data):
         pass
