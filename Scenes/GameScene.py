@@ -36,5 +36,12 @@ class GameScene:
         for tile in tile_rects:
             if tile["tile_data"]["solid"]:
                 return False
-
+            if tile["tile_index"] in self.world.current_map["teleport_to"].keys():
+                teleport_name = self.world.current_map["teleport_to"][tile["tile_index"]]
+                print("Teleporting To: ", teleport_name)
+                self.world.load(teleport_name)
+                player_pos = self.world.current_map["teleport_from"][self.world.old_map]
+                self.player.rect.x = player_pos[0] * 32
+                self.player.rect.y = player_pos[1] * 32
+                return False
         return True

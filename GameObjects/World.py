@@ -5,7 +5,9 @@ from Engine.Grid import Grid
 class World:
     def __init__(self, data):
         self.data = data
+        self.old_map = None
         self.current_map = None
+        self.current_map_name = None
         self.grid = None # Grid(data["grid"])
         self.width = None # self.grid.width
         self.height = None # self.grid.height
@@ -15,7 +17,9 @@ class World:
 
     def load(self, map_name):
         if map_name in self.data.keys():
+            self.old_map = self.current_map_name
             self.current_map = self.data[map_name]
+            self.current_map_name = map_name
             self.grid = Grid(self.current_map["grid"])
             self.width = self.grid.width
             self.height = self.grid.height
@@ -52,8 +56,9 @@ class World:
         ty = pos[1] // self.size
         tile_id = self.grid.get_cell(tx, ty)
         return {
+            "tile_index": (tx, ty),
             "tile_id": tile_id, 
-            "rect": pygame.Rect(tx, ty, self.size, self.size),
+            "rect": pygame.Rect(tx * self.size, ty * self.size, self.size, self.size),
             "tile_data": self.get_tile_data(tile_id)
         }
 

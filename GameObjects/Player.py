@@ -35,16 +35,4 @@ class Player:
 
     def handle_event(self, event):
         pass
-        # if event.type == pygame.KEYUP:
-        #     new_rect = self.rect.copy()
-        #     if event.key == pygame.K_UP:
-        #         new_rect.y -= 32
-        #     elif event.key == pygame.K_DOWN:
-        #         new_rect.y += 32
-        #     elif event.key == pygame.K_LEFT:
-        #         new_rect.x -= 32
-        #     elif event.key == pygame.K_RIGHT:
-        #         new_rect.x += 32
 
-        #     if self.screenrect.contains(new_rect):
-        #         self.rect = new_rect
