@@ -10,10 +10,12 @@ class World:
         self.height = self.grid.height
         self.size = 32
         self.image = None
+        self.rect = None
         self.render_image()
 
     def render_image(self):
         self.image = pygame.Surface((self.width * self.size, self.height * self.size), pygame.SRCALPHA)
+        self.rect = self.image.get_rect()
         for y in range(self.grid.height):
             for x in range(self.grid.width):
                 tile_id = self.grid.get_cell(x, y)

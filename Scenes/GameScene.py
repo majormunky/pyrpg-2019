@@ -12,7 +12,7 @@ class GameScene:
         self.world = World(levels.data["World"])
 
     def update(self, dt):
-        pass
+        self.player.update(dt, self.check_player_position)
 
     def draw(self, canvas):
         self.world.draw(canvas)
@@ -27,3 +27,7 @@ class GameScene:
     def deactivate(self):
         pass
 
+    def check_player_position(self, rect):
+        if self.world.rect.contains(rect):
+            return True
+        return False
