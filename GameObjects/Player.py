@@ -3,9 +3,9 @@ from Engine.Config import get_screenrect
 
 
 class Player:
-    def __init__(self):
+    def __init__(self, x, y):
         self.screenrect = get_screenrect()
-        self.rect = pygame.Rect(0, 0, 32, 32)
+        self.rect = pygame.Rect(x, y, 32, 32)
         self.color = (0, 255, 0)
 
     def update(self, dt):
