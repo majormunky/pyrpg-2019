@@ -1,15 +1,19 @@
 import pygame
+from Engine.SceneManager import SceneManager
+from Scenes.IntroScene import IntroScene
 
 
 class GameManager:
     def __init__(self):
-        pass
+        self.scenes = SceneManager(self)
+        self.scenes.add_scene("Intro", IntroScene)
+        self.scenes.change_scene("Intro")
 
     def update(self, dt):
-        pass
+        self.scenes.update(dt)
 
     def draw(self, canvas):
-        pygame.draw.rect(canvas, (255, 0, 0), (25, 25, 25, 25))
+        self.scenes.draw(canvas)
 
     def handle_event(self, event):
-        pass
+        self.scenes.handle_event(event)
