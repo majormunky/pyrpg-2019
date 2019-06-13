@@ -42,11 +42,14 @@ class World:
     def update(self, dt):
         pass
 
+    def get_rect(self):
+        return self.rect
+
     def get_tile_data(self, tile_id):
         return self.current_map["tile_info"].get(tile_id, None)
 
-    def draw(self, canvas):
-        canvas.blit(self.image, (0, 0))
+    def draw(self, canvas, camera):
+        canvas.blit(self.image, (0, 0), camera)
 
     def handle_event(self, event):
         pass
@@ -63,8 +66,21 @@ class World:
         }
 
     def get_tiles(self, rect):
+        cache = []
+        result = []
         t1 = self.get_tile_at_pos((rect.x, rect.y))
         t2 = self.get_tile_at_pos((rect.right, rect.y))
         t3 = self.get_tile_at_pos((rect.x, rect.bottom))
         t4 = self.get_tile_at_pos((rect.right, rect.bottom))
-        return [t1, t2, t3, t4]
+        cache.append(t1["rect"])
+        result.append(t1)
+        if t2["rect"] not in cache:
+            cache.append(t2["rect"])
+            result.append(t2)
+        if t3["rect"] not in cache:
+            cache.append(t3["rect"])
+            result.append(t3)
+        if t4["rect"] not in cache:    
+            cache.append(t4["rect"])
+            result.append(t4)
+        return result
