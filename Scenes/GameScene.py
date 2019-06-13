@@ -11,6 +11,9 @@ class GameScene:
         self.player = Player(64, 64)
         self.world = World(levels.data)
         self.world.load("World")
+        self.overlay = None
+        self.selected_rects = []
+        self.debug = True
 
     def update(self, dt):
         self.player.update(dt, self.check_player_position)
@@ -18,6 +21,10 @@ class GameScene:
     def draw(self, canvas):
         self.world.draw(canvas)
         self.player.draw(canvas)
+
+        if self.debug:
+            if self.selected_rects:
+                canvas.blit(self.overlay, (0, 0))
 
     def handle_event(self, event):
         self.player.handle_event(event)
@@ -28,11 +35,23 @@ class GameScene:
     def deactivate(self):
         pass
 
+    def set_rects(self, rect_list):
+        self.overlay = pygame.Surface((self.screenrect.width, self.screenrect.height), pygame.SRCALPHA)
+
+        self.selected_rects = rect_list
+
+        for sr in self.selected_rects:
+            pygame.draw.rect(self.overlay, (0, 255, 255, 128), sr["rect"])
+
     def check_player_position(self, rect):
         if not self.world.rect.contains(rect):
             return False
 
         tile_rects = self.world.get_tiles(rect)
+
+        if self.debug:
+            self.set_rects(tile_rects)
+        
         for tile in tile_rects:
             if tile["tile_data"]["solid"]:
                 return False
