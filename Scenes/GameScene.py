@@ -5,6 +5,7 @@ from GameObjects.Player import Player
 from GameObjects.World import World
 from Data import levels
 
+
 class GameScene:
     def __init__(self, manager):
         self.manager = manager
@@ -40,10 +41,7 @@ class GameScene:
 
     def check_player_position(self, rect, direction):
         fixed_rect = pygame.Rect(
-            rect.x + self.camera.x,
-            rect.y + self.camera.y,
-            rect.width,
-            rect.height
+            rect.x + self.camera.x, rect.y + self.camera.y, rect.width, rect.height
         )
 
         if not self.screenrect.contains(rect):
@@ -52,10 +50,12 @@ class GameScene:
 
         tile_rects = self.world.get_tiles(fixed_rect)
         print(f"Tiles: {len(tile_rects)}")
-        
+
         for tile in tile_rects:
             if tile["tile_index"] in self.world.current_map["teleport_to"].keys():
-                teleport_name = self.world.current_map["teleport_to"][tile["tile_index"]]
+                teleport_name = self.world.current_map["teleport_to"][
+                    tile["tile_index"]
+                ]
                 self.world.load(teleport_name)
                 player_pos = self.world.current_map["teleport_from"][self.world.old_map]
                 self.player.rect.x = player_pos[0] * 32
