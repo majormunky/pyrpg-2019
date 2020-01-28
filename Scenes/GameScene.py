@@ -49,7 +49,6 @@ class GameScene:
             return False
 
         tile_rects = self.world.get_tiles(fixed_rect)
-        print(f"Tiles: {len(tile_rects)}")
 
         for tile in tile_rects:
             if tile["tile_index"] in self.world.current_map["teleport_to"].keys():
