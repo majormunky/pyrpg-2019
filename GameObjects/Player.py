@@ -35,6 +35,8 @@ class Player:
             result = move_cb(new_rect, direction)
             if result:
                 self.rect = new_rect
+            else:
+                print("We should not be moving right now")
 
     def draw(self, canvas, camera):
         pygame.draw.rect(canvas, self.color, self.rect)

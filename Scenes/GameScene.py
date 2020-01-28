@@ -67,38 +67,40 @@ class GameScene:
         camera_rect = self.camera.get_rect()
         has_moved = False
 
-        dx = abs(rect.x - self.player.rect.x)
-        dy = abs(rect.y - self.player.rect.y)
+        # dx = abs(rect.x - self.player.rect.x)
+        # dy = abs(rect.y - self.player.rect.y)
+        dx = 8
+        dy = 8
 
         if map_rect.contains(rect) and self.screenrect.contains(rect):
             if direction == "right":
                 if rect.right > self.screenrect.width - self.map_pad:
-                    camera_rect.x += dx
-                    camera_moved = self.camera.move(camera_rect, map_rect)
+                    # camera_rect.x += dx
+                    camera_moved = self.camera.move(camera_rect, map_rect, 8, direction)
                     if not camera_moved:
                         has_moved = True
                 else:
                     has_moved = True
             elif direction == "left":
                 if rect.x < self.map_pad:
-                    camera_rect.x -= dx
-                    camera_moved = self.camera.move(camera_rect, map_rect)
+                    # camera_rect.x -= dx
+                    camera_moved = self.camera.move(camera_rect, map_rect, 8, direction)
                     if not camera_moved:
                         has_moved = True
                 else:
                     has_moved = True
             elif direction == "up":
                 if rect.y < self.map_pad:
-                    camera_rect.y -= dy
-                    camera_moved = self.camera.move(camera_rect, map_rect)
+                    # camera_rect.y -= dy
+                    camera_moved = self.camera.move(camera_rect, map_rect, 8, direction)
                     if not camera_moved:
                         has_moved = True
                 else:
                     has_moved = True
             elif direction == "down":
                 if rect.y > self.screenrect.height - self.map_pad:
-                    camera_rect.y += dy
-                    camera_moved = self.camera.move(camera_rect, map_rect)
+                    # camera_rect.y += dy
+                    camera_moved = self.camera.move(camera_rect, map_rect, 8, direction)
                     if not camera_moved:
                         has_moved = True
                 else:
