@@ -29,8 +29,8 @@ class Player:
 
         if move:
             new_rect = self.rect.copy()
-            new_rect.x += (move.x * self.speed * dt)
-            new_rect.y += (move.y * self.speed * dt)
+            new_rect.x += move.x * self.speed * dt
+            new_rect.y += move.y * self.speed * dt
 
             result = move_cb(new_rect, direction)
             if result:
@@ -41,4 +41,3 @@ class Player:
 
     def handle_event(self, event):
         pass
-
