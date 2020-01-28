@@ -3,6 +3,7 @@ from Engine.Config import get_screenrect
 from Engine.Camera import Camera
 from GameObjects.Player import Player
 from GameObjects.World import World
+from GameObjects.GameMenu import GameMenu
 from Data import levels
 
 
@@ -14,6 +15,7 @@ class GameScene:
         self.world = World(levels.data)
         self.world.load("World")
         self.camera = Camera()
+        self.menu = GameMenu()
 
         # ?
         self.map_pad = 128
@@ -25,9 +27,15 @@ class GameScene:
         camera_rect = self.camera.get_rect()
         self.world.draw(canvas, camera_rect)
         self.player.draw(canvas, camera_rect)
+        self.menu.draw(canvas)
 
     def handle_event(self, event):
-        self.player.handle_event(event)
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_TAB:
+                self.menu.toggle_active()
+
+        if not self.menu.active:
+            self.player.handle_event(event)
 
     def activate(self, data):
         pass
@@ -40,6 +48,9 @@ class GameScene:
         self.camera.y = y
 
     def check_player_position(self, rect, direction):
+        if self.menu.active:
+            return False
+
         fixed_rect = pygame.Rect(
             rect.x + self.camera.x, rect.y + self.camera.y, rect.width, rect.height
         )
